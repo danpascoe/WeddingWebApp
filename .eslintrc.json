@@ -1,0 +1,56 @@
+{
+    "plugins": ["mui-path-imports"],
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true
+        }
+    },
+    "settings": {
+        "react": {
+            "pragma": "React",
+            "version": "detect"
+        },
+        // Apply special parsing for TypeScript files
+        "import/parsers": {
+            "@typescript-eslint/parser": [".ts", ".tsx", ".d.ts"]
+        },
+        // Append 'ts' extensions to Airbnb 'import/resolver' setting
+        "import/resolver": {
+            "node": {
+                "extensions": [".mjs", ".js", ".json", ".ts", ".d.ts"]
+            }
+        },
+        // Append 'ts' extensions to Airbnb 'import/extensions' setting
+        "import/extensions": [".js", ".mjs", ".jsx", ".ts", ".tsx", ".d.ts"],
+        // Resolve type definition packages
+        "import/external-module-folders": ["node_modules", "node_modules/@types"]
+    },
+    "env": {
+        "node": true,
+        "browser": true,
+        "es6": true
+    },
+    "rules": {
+        "eqeqeq": ["warn", "smart"],
+        "quote-props": "off",
+        "no-restricted-imports": [
+            "error",
+            {
+                "patterns": ["@mui/*/*/*", "!@mui/material/test-utils/*"]
+            }
+        ],
+        "jsdoc/check-examples": "off",
+        "react/jsx-no-bind": [
+            "warn",
+            {
+                "ignoreDOMComponents": true,
+                "ignoreRefs": true
+            }
+        ],
+        "indent": "off",
+        "no-nested-ternary": "off",
+        "mui-path-imports/mui-path-imports": "error",
+        "react/react-in-jsx-scope": "off",
+        "max-len": ["warn", 200]
+    }
+}
