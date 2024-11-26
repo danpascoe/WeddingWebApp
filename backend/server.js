@@ -2,7 +2,7 @@ import * as dotenv from 'dotenv';
 import express from "express";
 
 import { connectDB } from './config/database.js';
-import { router as weddingRouter } from "./routes/wedding.route.js";
+import weddingRouter from './routes/wedding.route.js';
 
 dotenv.config()
 
@@ -16,7 +16,7 @@ app.use((req, res, next) => {
     next();
 });
 
-app.use('/api/weddings', weddingRouter)
+app.use('/api/weddings', weddingRouter);
 
 app.listen(PORT, () => {
 	connectDB();
