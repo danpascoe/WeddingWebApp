@@ -1,23 +1,58 @@
 import mongoose from "mongoose";
-import { weddingSchema } from "../schema/wedding.schema.js";
+import { Wedding } from "../schemas/wedding.schema.js";
+
+export const createWedding = async (request, response) => {
+    const wedding = new Wedding(request.body);
+
+    // Validation
+
+    try {
+		await wedding.save();
+		response.status(201).json({ success: true, data: wedding });
+	} catch (error) {
+		console.error("Error in create wedding:", error.message);
+		response.status(500).json({ success: false, message: "Server Error" });
+	}
+};
 
 export const getWeddings = async (request, response) => {
-    response.status(200).json("Get weddings called");
+    try {
+		const weddings = await Wedding.find()
+        response.status(201).json({ success: true, data: weddings });
+	} catch (error) {
+		console.error("Error in get weddings:", error.message);
+		response.status(500).json({ success: false, message: "Server Error" });
+	}    
 };
 
 export const getWedding = async (request, response) => {
     const { id } = request.params;
-    response.status(200).json("Get wedding called - id: " + id);
-};
+    
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+		return response.status(404).json({ success: false, message: "Invalid Id" });
+	}
 
-export const createWedding = async (request, response) => {
-    response.status(200).json("Create wedding called")
+    try {
+		const wedding = await Wedding.findById(id)
+        response.status(201).json({ success: true, data: wedding });
+	} catch (error) {
+		console.error("Error in get wedding (" + id + "):", error.message);
+		response.status(500).json({ success: false, message: "Server Error" });
+	}    
 };
 
 export const editWedding = async (request, response) => {
-    response.status(200).json("Edit wedding called - id: " + id);
-};
+    const { id } = request.params;
+    
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+		return response.status(404).json({ success: false, message: "Invalid Id" });
+	}
 
-export const deleteWedding = async (request, response) => {
-    response.status(200).json("Delete wedding called - id: " + id);
+    try {
+		const updatedWedding = await Wedding.findByIdAndUpdate(id, request.body, { new: true });
+		response.status(200).json({ success: true, data: updatedWedding });
+	} catch (error) {
+		console.error("Error in edit wedding (" + id + "):", error.message);
+        response.status(500).json({ success: false, message: "Server Error" });
+	}
 };

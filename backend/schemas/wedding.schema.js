@@ -3,11 +3,7 @@ import { userSchema } from './user.schema.js';
 
 const Schema = mongoose.Schema;
 
-export const weddingSchema = new Schema({
-    id: {
-        type: String,
-        required: true
-    },
+const weddingSchema = new Schema({
     personOne: {
         type: userSchema,
         required: true
@@ -18,6 +14,8 @@ export const weddingSchema = new Schema({
     },
     date: {
         type: Date,
-        required: true
+        required: false
     }
 }, {timestamps: true})
+
+export const Wedding = mongoose.model("Wedding", weddingSchema);
