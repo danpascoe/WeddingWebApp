@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import { Guest } from "../schemas/guest.schema.js";
+import { GuestStatus } from "../models/Guest.js";
 
 export const createGuest = async (request, response) => {
     const guest = new Guest(request.body);
@@ -53,6 +54,26 @@ export const editGuest = async (request, response) => {
 
     try {
 		const guest = await Guest.findByIdAndUpdate(guestId, request.body, { new: true });
+		response.status(200).json({ success: true, data: guest });
+	} catch (error) {
+		console.error("Error in edit guest (" + guestId + "):", error.message);
+        response.status(500).json({ success: false, message: "Server Error" });
+	}
+};
+
+export const updateGuestStatus = async (request, response) => {
+	const { guestId, status } = request.params;
+
+	if (!mongoose.Types.ObjectId.isValid(guestId)) {
+		return response.status(404).json({ success: false, message: "Invalid Id" });
+	}
+	
+	if (isNaN(status) || !Object.values(GuestStatus).includes(Number(status))) {
+		return response.status(404).json({ success: false, message: "Invalid Status" });
+	}
+	
+	try {
+		const guest = await Guest.findByIdAndUpdate(guestId, {$set: {"status": status}}, { new: true });
 		response.status(200).json({ success: true, data: guest });
 	} catch (error) {
 		console.error("Error in edit guest (" + guestId + "):", error.message);
