@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 import { userSchema } from './user.schema.js';
+import { itineraryItemSchema } from './itineraryItem.schema.js';
 
 const Schema = mongoose.Schema;
 
@@ -15,7 +16,11 @@ const weddingSchema = new Schema({
     date: {
         type: Date,
         required: false
-    }
+    },
+    itineraryItems: {
+        type: [itineraryItemSchema],
+        required: true
+    },    
 }, {timestamps: true})
 
 export const Wedding = mongoose.model("Wedding", weddingSchema);
