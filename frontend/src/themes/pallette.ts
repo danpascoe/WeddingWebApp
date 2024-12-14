@@ -10,5 +10,10 @@ export const paletteTheme = createPalette({
     background: {
         paper: "#fff",
         default: "#F5F7FF"
-    }
+    },
+    
 });
+
+// #49A078 Green
+// #D5573B Red
+// #F8F32B Yellow

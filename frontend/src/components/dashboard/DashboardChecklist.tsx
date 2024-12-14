@@ -1,5 +1,4 @@
 import {
-	Box,
 	Link,
 	List,
 	ListItem,
@@ -48,7 +47,7 @@ export const DashboardChecklist = () => {
 	];
 
 	return (
-		<Paper sx={{ padding: theme.spacing(2) }}>
+		<Paper sx={{ padding: theme.spacing(2), height: "100%" }}>
 			<Typography variant="h2">Task Checklist</Typography>
 			<Typography>Here are some items that need your attention</Typography>
 			<List>

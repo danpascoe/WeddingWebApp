@@ -1,4 +1,4 @@
-import { Box, Paper, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import {
 	DashboardGridStat,
 	DashboardGridStatProps,
@@ -11,6 +11,8 @@ import GroupAddIcon from "@mui/icons-material/GroupAdd";
 import HourglassTopIcon from "@mui/icons-material/HourglassTop";
 import PersonOffIcon from "@mui/icons-material/PersonOff";
 import { DashboardChecklist } from "../components/dashboard/DashboardChecklist";
+import { DashboardGuestBreakdown } from "../components/dashboard/DashboardGuestBreakdown";
+import { DashboardGiftsBreakdown } from "../components/dashboard/DashboardGiftsBreakdown";
 
 const dashboardStats: DashboardGridStatProps[] = [
 	{ value: 351, title: "Days to Go", icon: <AvTimerIcon /> },
@@ -38,10 +40,13 @@ export const Dashboard = () => {
 			</Grid>
 			<Grid container spacing={2} mt={2}>
 				<Grid size={4}>
+					<DashboardGuestBreakdown />
+				</Grid>
+				<Grid size={4}>
 					<DashboardChecklist />
 				</Grid>
-				<Grid size={8}>
-					<Paper>1</Paper>
+				<Grid size={4}>
+					<DashboardGiftsBreakdown />
 				</Grid>
 			</Grid>
 		</Box>
